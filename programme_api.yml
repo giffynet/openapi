@@ -1,0 +1,1424 @@
+openapi: 3.0.0
+servers:
+  - url: https://giffynet.com/v1
+    description: Production server (uses live data)
+  - url: https://sandbox.giffynet.com/v1
+    description: Sandbox server (uses test data)
+info:
+  description: This is a Programme API
+  version: "1.0.0"
+  title: Programme API
+  contact: {}
+tags:
+  - name: Programme
+    description: Programme Operations
+  - name: Formula
+    description: Formula Operations
+  - name: Card
+    description: Card Operations
+  - name: Tier
+    description: Tier Operations
+  - name: Campaign
+    description: Campaign Operations
+paths:
+  /merchant/business/{businessId}/programme:
+    get:
+      tags:
+        - Programme
+      description: Get all programme detail
+      operationId: getAllProgramme
+      parameters:
+        - name: businessId
+          in: path
+          description: Business Business ID of merchant
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Return list of programme detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/programmeList"
+        "404":
+          description: List of Programme is empty
+          content: {}
+    post:
+      tags:
+        - Programme
+      description: Register new programme
+      operationId: addprogramme
+      parameters:
+        - name: businessId
+          in: path
+          description: Business ID of merchant
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Successfull Creation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/programmeDetail"
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+      requestBody:
+        $ref: "#/components/requestBodies/programmeRegister"
+  /merchant/business/{businessId}/programme/{programmeId}:
+    get:
+      tags:
+        - Programme
+      description: Get programme detail
+      operationId: getProgramme
+      parameters:
+        - name: businessId
+          in: path
+          description: Business ID of merchant
+          required: true
+          schema:
+            type: string
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/programmeDetail"
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+        "404":
+          description: Programme ID is not found
+          content: {}
+    put:
+      tags:
+        - Programme
+      description: Update programme detail
+      operationId: updateProgramme
+      parameters:
+        - name: businessId
+          in: path
+          description: Business ID of merchant
+          required: true
+          schema:
+            type: string
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Update Successfull
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/programmeDetail"
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+        "404":
+          description: Programme ID is not found
+          content: {}
+      requestBody:
+        $ref: "#/components/requestBodies/programmeRegister"
+    delete:
+      tags:
+        - Programme
+      description: Delete programme
+      operationId: deleteProgramme
+      parameters:
+        - name: businessId
+          in: path
+          description: Business ID of merchant
+          required: true
+          schema:
+            type: string
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Delete successful
+          content: {}
+        "404":
+          description: Programme ID is not found
+          content: {}
+        "409":
+          description: Programme still used by another service
+          content: {}
+  /merchant/programme/{programmeId}/formula:
+    get:
+      tags:
+        - Formula
+      description: Get all formula detail
+      operationId: getAllFormula
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Return list of formula detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/formulaDetail"
+        "404":
+          description: List of Formula is empty
+          content: {}
+    post:
+      tags:
+        - Formula
+      description: Register new formula
+      operationId: addformula
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Successfull Creation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/formulaDetail"
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+      requestBody:
+        $ref: "#/components/requestBodies/formulaRegister"
+  /merchant/programme/{programmeId}/formula/{formulaId}:
+    get:
+      tags:
+        - Formula
+      description: Get formula detail
+      operationId: getFormula
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+        - name: formulaId
+          in: path
+          description: ID of formula
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/formulaDetail"
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+        "404":
+          description: Formula ID is not found
+          content: {}
+    put:
+      tags:
+        - Formula
+      description: Update formula detail
+      operationId: updateFormula
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+        - name: formulaId
+          in: path
+          description: ID of formula
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Update Successfull
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/formulaDetail"
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+        "404":
+          description: Formula ID is not found
+          content: {}
+      requestBody:
+        $ref: "#/components/requestBodies/formulaRegister"
+    delete:
+      tags:
+        - Formula
+      description: Delete formula
+      operationId: deleteFormula
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+        - name: formulaId
+          in: path
+          description: ID of formula
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Delete successful
+          content: {}
+        "404":
+          description: Formula ID is not found
+          content: {}
+        "409":
+          description: Formula still used by another service
+          content: {}
+  /merchant/campaign:
+    get:
+      tags:
+        - Campaign
+      description: Get all campaign detail
+      operationId: getAllCampaign
+      responses:
+        "200":
+          description: Return list of campaign detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/campaignList"
+        "404":
+          description: List of Campaign is empty
+          content: {}
+    post:
+      tags:
+        - Campaign
+      description: Register new campaign
+      operationId: addcampaign
+      responses:
+        "201":
+          description: Successfull Creation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/campaignDetail"
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+      requestBody:
+        $ref: "#/components/requestBodies/campaignRegister"
+  /merchant/campaign/{campaignId}:
+    get:
+      tags:
+        - Campaign
+      description: Get campaign detail
+      operationId: getCampaign
+      parameters:
+        - name: campaignId
+          in: path
+          description: ID of campaign
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/campaignDetail"
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+        "404":
+          description: Campaign ID is not found
+          content: {}
+    put:
+      tags:
+        - Campaign
+      description: Update campaign detail
+      operationId: updateCampaign
+      parameters:
+        - name: campaignId
+          in: path
+          description: ID of campaign
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Update Successfull
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/campaignDetail"
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+        "404":
+          description: Campaign ID is not found
+          content: {}
+      requestBody:
+        $ref: "#/components/requestBodies/campaignRegister"
+    delete:
+      tags:
+        - Campaign
+      description: Delete campaign
+      operationId: deleteCampaign
+      parameters:
+        - name: campaignId
+          in: path
+          description: ID of campaign
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Delete successful
+          content: {}
+        "404":
+          description: Campaign ID is not found
+          content: {}
+        "409":
+          description: Campaign still used by another service
+          content: {}
+  /merchant/programme/{programmeId}/batch:
+    get:
+      tags:
+        - Card
+      description: Get list of all batch card
+      operationId: getAllBatchCard
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Return list of batch card
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cardBatchDetail"
+        "404":
+          description: List of Batch Card is empty
+          content: {}
+    post:
+      tags:
+        - Card
+      description: Register new batch card
+      operationId: addBatchCard
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Successfull Creation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cardBatchResponse"
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+      requestBody:
+        $ref: "#/components/requestBodies/cardBatchRegister"
+  /merchant/programme/{programmeId}batch/{batchId}:
+    get:
+      tags:
+        - Card
+      description: Get batch card detail
+      operationId: getBatchCard
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+        - name: batchId
+          in: path
+          description: ID of card
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cardBatchDetail"
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+        "404":
+          description: Batch ID not found
+          content: {}
+    put:
+      tags:
+        - Card
+      description: Update batch card detail
+      operationId: updateBatchCard
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+        - name: batchId
+          in: path
+          description: ID of card
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Update Successfull
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cardBatchDetail"
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+        "404":
+          description: Batch ID not found
+          content: {}
+      requestBody:
+        $ref: "#/components/requestBodies/cardBatchRegister"
+    delete:
+      tags:
+        - Card
+      description: Delete abtch card
+      operationId: deleteBatchCard
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+        - name: batchId
+          in: path
+          description: ID of card
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Delete successful
+          content: {}
+        "404":
+          description: Batch ID not found
+          content: {}
+        "409":
+          description: Card still in use
+          content: {}
+  /merchant/programme/{programmeId}/card:
+    get:
+      tags:
+        - Card
+      description: Get list of all card
+      operationId: getAllCard
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Return list of card detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cardDetail"
+        "404":
+          description: List of card is empty
+          content: {}
+  /merchant/programme/{programmeId}/card/{cardId}:
+    patch:
+      tags:
+        - Card
+      description: Add programme card amount
+      operationId: addProgrammeCardAmount
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+        - name: cardId
+          in: path
+          description: ID of card
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Update Successfull
+          content: {}
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+        "404":
+          description: Card ID Not found
+          content: {}
+      requestBody:
+        $ref: "#/components/requestBodies/cardStatusUpdate"
+  /merchant/programme/{programmeId}/tier:
+    get:
+      tags:
+        - Tier
+      description: Get all tier detail
+      operationId: getAllTier
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Return list of tier detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tierList"
+        "404":
+          description: List of Tier is empty
+          content: {}
+    post:
+      tags:
+        - Tier
+      description: Register new tier
+      operationId: addtier
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Successfull Creation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tierDetail"
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+      requestBody:
+        $ref: "#/components/requestBodies/tierRegister"
+  /merchant/programme/{programmeId}/tier/{tierId}:
+    get:
+      tags:
+        - Tier
+      description: Get tier detail
+      operationId: getTier
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+        - name: tierId
+          in: path
+          description: ID of tier
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tierDetail"
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+        "404":
+          description: Tier ID is not found
+          content: {}
+    put:
+      tags:
+        - Tier
+      description: Update tier detail
+      operationId: updateTier
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+        - name: tierId
+          in: path
+          description: ID of tier
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Update Successfull
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tierDetail"
+        "400":
+          description: Invalid parameter supplied
+          content: {}
+        "404":
+          description: Tier ID is not found
+          content: {}
+      requestBody:
+        $ref: "#/components/requestBodies/tierRegister"
+    delete:
+      tags:
+        - Tier
+      description: Delete tier
+      operationId: deleteTier
+      parameters:
+        - name: programmeId
+          in: path
+          description: ID of programme
+          required: true
+          schema:
+            type: string
+        - name: tierId
+          in: path
+          description: ID of tier
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Delete successful
+          content: {}
+        "404":
+          description: Tier ID is not found
+          content: {}
+        "409":
+          description: Tier still used by another service
+          content: {}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    programmeRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: "My Programme"
+        description:
+          type: string
+          example: "My Programme Description"
+        artwork:
+          type: string
+          example: "https://giffynet.com/image/programme.jpg"
+        reloadable:
+          type: boolean
+          example: 1
+        oneTimeUse:
+          type: boolean
+          example: 1
+        allowVoidCancel:
+          type: boolean
+          example: 1
+        cancellationPeriod:
+          type: integer
+          example: 10
+        businessId:
+          type: integer
+          example: 1
+        corporationId:
+          type: integer
+          example: 12
+        establishmentId:
+          type: integer
+          example: 21
+        outletId:
+          type: integer
+          example: 37
+        currencyId:
+          type: integer
+          example: 72
+        marketingId:
+          type: integer
+          example: 22
+        giftCard:
+          type: integer
+          example: 10
+        faceValue:
+          type: integer
+          example: 120
+        closedOnZero:
+          type: boolean
+          example: 1
+        validityPeriod:
+          type: integer
+          example: 120
+        maxBalance:
+          type: integer
+          example: 1000
+    programmeDetail:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 1
+        uuid:
+          type: string
+          format: uuid
+          example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        programmeId:
+          type: string
+          example: "P001"
+        name:
+          type: string
+          example: "My Programme"
+        description:
+          type: string
+          example: "My Programme Description"
+        artwork:
+          type: string
+          example: "https://giffynet.com/image/programme.jpg"
+        reloadable:
+          type: boolean
+          example: 1
+        oneTimeUse:
+          type: boolean
+          example: 1
+        allowVoidCancel:
+          type: boolean
+          example: 1
+        cancellationPeriod:
+          type: integer
+          example: 10
+        businessId:
+          type: integer
+          example: 1
+        corporationId:
+          type: integer
+          example: 12
+        establishmentId:
+          type: integer
+          example: 21
+        outletId:
+          type: integer
+          example: 37
+        currencyId:
+          type: integer
+          example: 72
+        marketingId:
+          type: integer
+          example: 22
+        giftCard:
+          type: integer
+          example: 10
+        faceValue:
+          type: integer
+          example: 120
+        closedOnZero:
+          type: boolean
+          example: 1
+        validityPeriod:
+          type: integer
+          example: 120
+        maxBalance:
+          type: integer
+          example: 1000
+    programmeList:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 1
+        uuid:
+          type: string
+          format: uuid
+          example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        programmeId:
+          type: string
+          example: "P001"
+        name:
+          type: string
+          example: "My Programme"
+        description:
+          type: string
+          example: "My Programme Description"
+        totalCard:
+          type: integer
+          example: 99
+        unassigned:
+          type: integer
+          example: 30
+        pending:
+          type: integer
+          example: 5
+        active:
+          type: integer
+          example: 50
+        closed:
+          type: integer
+          example: 10
+        expired:
+          type: integer
+          example: 4
+        status:
+          type: integer
+          example: 1
+    campaignRequest:
+      type: object
+      required:
+        - name
+      properties:
+        description:
+          type: string
+          example: "My Campaign Description"
+        MaxUser:
+          type: integer
+          example: 1000
+        countryId:
+          type: integer
+          example: 17
+        cityId:
+          type: integer
+          example: 12
+        nationalityId:
+          type: integer
+          example: 28
+        sex:
+          type: integer
+          example: 1
+        ageGroupId:
+          type: integer
+          example: 8
+        postalArea:
+          type: integer
+          example: 12345
+        carOwnership:
+          type: boolean
+          example: 1
+        houseOwnership:
+          type: boolean
+          example: 1
+        incomeRangeId:
+          type: integer
+          example: 5
+        message:
+          type: string
+          example: "Example message"
+        periodStart:
+          type: string
+          example: "20-02-2020"
+        periodEnd:
+          type: string
+          example: "10-03-2020"
+        promoType:
+          type: string
+          example: 1
+        formulaId:
+          type: integer
+          example: 28
+        voucherValue:
+          type: integer
+          example: 50
+    campaignList:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 1
+        uuid:
+          type: string
+          format: uuid
+          example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        description:
+          type: string
+          example: "My Campaign Description"
+        message:
+          type: string
+          example: "Example message"
+        periodStart:
+          type: string
+          example: "20-02-2020"
+        periodEnd:
+          type: string
+          example: "10-03-2020"
+        promoType:
+          type: string
+          example: 1
+        targetCount:
+          type: integer
+          example: 1000
+        activatedCount:
+          type: integer
+          example: 900
+        redemptionCount:
+          type: integer
+          example: 100
+        notificationStatus:
+          type: boolean
+          example: 1
+    campaignDetail:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 1
+        uuid:
+          type: string
+          format: uuid
+          example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        description:
+          type: string
+          example: "My Campaign Description"
+        MaxUser:
+          type: integer
+          example: 1000
+        countryId:
+          type: integer
+          example: 17
+        cityId:
+          type: integer
+          example: 12
+        nationalityId:
+          type: integer
+          example: 28
+        sex:
+          type: integer
+          example: 1
+        ageGroupId:
+          type: integer
+          example: 8
+        postalArea:
+          type: integer
+          example: 12345
+        carOwnership:
+          type: boolean
+          example: 1
+        houseOwnership:
+          type: boolean
+          example: 1
+        incomeRangeId:
+          type: integer
+          example: 5
+        message:
+          type: string
+          example: "Example message"
+        periodStart:
+          type: string
+          example: "20-02-2020"
+        periodEnd:
+          type: string
+          example: "10-03-2020"
+        promoType:
+          type: string
+          example: 1
+        formulaId:
+          type: integer
+          example: 28
+        voucherValue:
+          type: integer
+          example: 50
+    cardBatchRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: "My Batch Card"
+        description:
+          type: string
+          example: "My Batch Card Description"
+        noOfCard:
+          type: integer
+          example: 21
+        useActivationCode:
+          type: boolean
+          example: 1
+        activationCode:
+          type: string
+          example: "AX123T"
+    cardBatchResponse:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 1
+        uuid:
+          type: string
+          format: uuid
+          example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        name:
+          type: string
+          example: "My Card"
+        cardId:
+          type: string
+          example: "C001"
+        description:
+          type: string
+          example: "My Card Description"
+        totalCard:
+          type: integer
+          example: 99
+        creationDate:
+          type: string
+          example: "12/01/2019"
+        status:
+          type: integer
+          example: 1
+    cardBatchDetail:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 1
+        uuid:
+          type: string
+          format: uuid
+          example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        name:
+          type: string
+          example: "My Card"
+        cardId:
+          type: string
+          example: "C001"
+        description:
+          type: string
+          example: "My Card Description"
+        totalCard:
+          type: integer
+          example: 99
+        unassigned:
+          type: integer
+          example: 30
+        pending:
+          type: integer
+          example: 5
+        active:
+          type: integer
+          example: 50
+        closed:
+          type: integer
+          example: 10
+        expired:
+          type: integer
+          example: 4
+        creationDate:
+          type: string
+          example: "12/01/2019"
+        status:
+          type: integer
+          example: 1
+    cardDetail:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 1
+        uuid:
+          type: string
+          format: uuid
+          example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        cardId:
+          type: string
+          example: "C001"
+        userId:
+          type: string
+          example: "U001"
+        userName:
+          type: string
+          example: "Registered User"
+        expiryDate:
+          type: string
+          example: "20/01/2030"
+        formulaId:
+          type: integer
+          example: 1
+        formulaName:
+          type: string
+          example: "Gold"
+        totalTopup:
+          type: integer
+          example: 100000
+        totalRedeem:
+          type: integer
+          example: 70000
+        mainBalance:
+          type: integer
+          example: 20000
+        bonusBalance:
+          type: integer
+          example: 10000
+        status:
+          type: integer
+          example: 1
+    cardStatusRequest:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: integer
+          example: 1
+    formulaRequest:
+      type: object
+      required:
+        - name
+      properties:
+        description:
+          type: string
+          example: "My Formula Description"
+        accumulateType:
+          type: integer
+          example: 1
+        accumulateTopup:
+          type: integer
+          example: 10000
+        accumulateRedeem:
+          type: integer
+          example: 10000
+        resetOn:
+          type: integer
+          example: "20-01-2025"
+    tierRequest:
+      type: object
+      required:
+        - name
+      properties:
+        description:
+          type: string
+          example: "My Tier Description"
+        tierType:
+          type: string
+          example: 1
+        accumulativeTopupAmount:
+          type: integer
+          example: 1000
+        accumulativeRedeemAmount:
+          type: integer
+          example: 5000
+        resetOn:
+          type: integer
+          example: 1
+        resetDate:
+          type: string
+          example: "20/12/2030"
+        status:
+          type: integer
+          example: 1
+    tierDetail:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 1
+        uuid:
+          type: string
+          format: uuid
+          example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        description:
+          type: string
+          example: "My Tier Description"
+        tierType:
+          type: string
+          example: 1
+        accumulativeTopupAmount:
+          type: integer
+          example: 1000
+        accumulativeRedeemAmount:
+          type: integer
+          example: 5000
+        resetOn:
+          type: integer
+          example: 1
+        resetDate:
+          type: string
+          example: "20/12/2030"
+        status:
+          type: integer
+          example: 1
+    tierList:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 1
+        uuid:
+          type: string
+          format: uuid
+          example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        name:
+          type: string
+          example: "My Tier"
+        tierId:
+          type: string
+          example: "T001"
+        description:
+          type: string
+          example: "My Tier Description"
+        tierType:
+          type: string
+          example: 1
+        accumulativeTopupAmount:
+          type: integer
+          example: 1000
+        accumulativeRedeemAmount:
+          type: integer
+          example: 5000
+        resetOn:
+          type: integer
+          example: 1
+        resetDate:
+          type: string
+          example: "20/12/2030"
+        status:
+          type: integer
+          example: 1
+    formulaDetail:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 1
+        uuid:
+          type: string
+          format: uuid
+          example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        formulaId:
+          type: string
+          example: "F001"
+        description:
+          type: string
+          example: "My Formula Description"
+        accumulateType:
+          type: integer
+          example: 1
+        accumulateTopupAmount:
+          type: integer
+          example: 10000
+        accumulateRedeemAmount:
+          type: integer
+          example: 10000
+        resetOn:
+          type: integer
+          example: "20-01-2025"
+        status:
+          type: integer
+          example: 1
+  requestBodies:
+    programmeRegister:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/programmeRequest"
+      description: Programme request parameter
+      required: true
+    cardBatchRegister:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/cardBatchRequest"
+      description: Card request parameter
+      required: true
+    cardStatusUpdate:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/cardStatusRequest"
+      description: Card status change parameter
+      required: true
+    formulaRegister:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/formulaRequest"
+      description: Formula request parameter
+      required: true
+    tierRegister:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/tierRequest"
+      description: Tier request parameter
+      required: true
+    campaignRegister:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/campaignRequest"
+      description: Campaign request parameter
+      required: true
+security:
+    - bearerAuth: []
